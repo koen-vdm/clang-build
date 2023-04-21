@@ -24,4 +24,4 @@ RUN ln /usr/bin/clang-15 /usr/bin/clang && ln /usr/bin/clang-cpp-15 /usr/bin/cla
 # install development tools
 RUN apt install -y git nano
 ENTRYPOINT ["tail", "-f", "/dev/null"]
-COPY setup.sh $HOME/setup.sh
+COPY setup.sh /root/setup.sh
