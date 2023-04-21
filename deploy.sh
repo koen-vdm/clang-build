@@ -1,9 +1,17 @@
 #!/bin/bash
 
-read -p "Enter the docker user to deploy to: " user
+read -p "Enter the docker user to deploy to: " USER
 
-docker build . -t "$user/clang-build-tools"
+CURRENTUSER=$(docker info | sed '/Username:/!d;s/.* //')
+
+if [[ "$CURRENTUSER" != "$USER" ]]; then
+    docker login -u $USER
+fi
 
 if [[ "$?" -eq 0 ]]; then
-    docker push "$user/clang-build-tools"
+    docker build . -t "$USER/clang-build-tools-dev"
+fi
+
+if [[ "$?" -eq 0 ]]; then
+    docker push "$USER/clang-build-tools-dev"
 fi
