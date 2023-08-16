@@ -2,6 +2,7 @@
 
 read -p "Enter the docker user to deploy to: " USER
 
+PROJECTNAME=clang-build-tools-standalone-dev
 CURRENTUSER=$(docker info | sed '/Username:/!d;s/.* //')
 
 if [[ "$CURRENTUSER" != "$USER" ]]; then
@@ -9,9 +10,9 @@ if [[ "$CURRENTUSER" != "$USER" ]]; then
 fi
 
 if [[ "$?" -eq 0 ]]; then
-    docker build . -t "$USER/clang-build-tools-dev"
+    docker build . -t "$USER/$PROJECTNAME"
 fi
 
 if [[ "$?" -eq 0 ]]; then
-    docker push "$USER/clang-build-tools-dev"
+    docker push "$USER/$PROJECTNAME"
 fi
